@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureSpring - Website Security Checker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="falling-leaves">
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <h1>SecureSpring</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Check Your Website Security</h2>
+                <p>Analyze links, detect threats, and get comprehensive security information with our advanced tools.</p>
+                <div class="search-container">
+                    <input type="text" id="url-input" placeholder="Enter website URL..." autocomplete="off">
+                    <button id="check-button">Check Security</button>
+                </div>
+            </div>
+            <div class="blooming-flower"></div>
+        </section>
+
+        <section id="results" class="results hidden">
+            <h2>Security Analysis Results</h2>
+            <div class="loader hidden"></div>
+            <div class="result-container">
+                <div class="result-header">
+                    <div class="website-info">
+                        <img id="site-favicon" src="" alt="">
+                        <h3 id="site-title"></h3>
+                    </div>
+                    <div class="security-score">
+                        <div class="score-circle">
+                            <span id="security-score-value">0</span>
+                        </div>
+                        <p>Security Score</p>
+                    </div>
+                </div>
+                
+                <div class="result-tabs">
+                    <button class="tab-button active" data-tab="overview">Overview</button>
+                    <button class="tab-button" data-tab="threats">Threats</button>
+                    <button class="tab-button" data-tab="links">Links</button>
+                    <button class="tab-button" data-tab="details">Details</button>
+                    <button class="tab-button" data-tab="bots">Bots</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div id="overview" class="tab-pane active">
+                        <div class="security-summary">
+                            <div class="summary-item">
+                                <i class="fas fa-lock"></i>
+                                <h4>SSL Certificate</h4>
+                                <p id="ssl-status">Checking...</p>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fas fa-virus-slash"></i>
+                                <h4>Malware Detection</h4>
+                                <p id="malware-status">Checking...</p>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fas fa-link"></i>
+                                <h4>Link Safety</h4>
+                                <p id="link-status">Checking...</p>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fas fa-shield-virus"></i>
+                                <h4>Phishing Risk</h4>
+                                <p id="phishing-status">Checking...</p>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fas fa-robot"></i>
+                                <h4>Bot Protection</h4>
+                                <p id="bot-protection-status">Checking...</p>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fas fa-brain"></i>
+                                <h4>AI Analysis</h4>
+                                <p id="ai-status">Checking...</p>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fas fa-server"></i>
+                                <h4>Server Security</h4>
+                                <p id="server-security-status">Checking...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="threats" class="tab-pane">
+                        <div id="threats-container">
+                            <p>No threats detected yet.</p>
+                        </div>
+                    </div>
+                    
+                    <div id="links" class="tab-pane">
+                        <div id="links-container">
+                            <p>No links analyzed yet.</p>
+                        </div>
+                    </div>
+                    
+                    <div id="details" class="tab-pane">
+                        <div id="details-container">
+                            <div class="detail-item">
+                                <h4>Domain Information</h4>
+                                <table id="domain-info">
+                                    <tr>
+                                        <td>Registration Date:</td>
+                                        <td id="domain-reg-date">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Expiration Date:</td>
+                                        <td id="domain-exp-date">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registrar:</td>
+                                        <td id="domain-registrar">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>WHOIS Status:</td>
+                                        <td id="domain-whois-status">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Servers:</td>
+                                        <td id="domain-nameservers">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="detail-item">
+                                <h4>Server Information</h4>
+                                <table id="server-info">
+                                    <tr>
+                                        <td>Server Type:</td>
+                                        <td id="server-type">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>IP Address:</td>
+                                        <td id="server-ip">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location:</td>
+                                        <td id="server-location">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hosting Provider:</td>
+                                        <td id="server-hosting">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operating System:</td>
+                                        <td id="server-os">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="detail-item">
+                                <h4>DNS Records</h4>
+                                <table id="dns-records">
+                                    <tr>
+                                        <td>A Record:</td>
+                                        <td id="dns-a-record">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MX Records:</td>
+                                        <td id="dns-mx-records">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TXT Records:</td>
+                                        <td id="dns-txt-records">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SPF Record:</td>
+                                        <td id="dns-spf-record">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DMARC Record:</td>
+                                        <td id="dns-dmarc-record">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="detail-item">
+                                <h4>Technologies</h4>
+                                <div id="technologies-container">-</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="bots" class="tab-pane">
+                        <div class="bot-console">
+                            <div class="console-header">
+                                <h4><i class="fas fa-terminal"></i> Bot Activity Console</h4>
+                            </div>
+                            <div class="console-content">
+                                <div class="bot-tree">
+                                    <div class="bot-node ssl-bot">
+                                        <span class="bot-status">●</span>
+                                        <span class="bot-name">SSL Bot</span>
+                                        <div class="bot-actions" id="ssl-bot-actions"></div>
+                                    </div>
+                                    <div class="bot-node malware-bot">
+                                        <span class="bot-status">●</span>
+                                        <span class="bot-name">Malware Bot</span>
+                                        <div class="bot-actions" id="malware-bot-actions"></div>
+                                    </div>
+                                    <div class="bot-node phishing-bot">
+                                        <span class="bot-status">●</span>
+                                        <span class="bot-name">Phishing Bot</span>
+                                        <div class="bot-actions" id="phishing-bot-actions"></div>
+                                    </div>
+                                    <div class="bot-node link-bot">
+                                        <span class="bot-status">●</span>
+                                        <span class="bot-name">Link Safety Bot</span>
+                                        <div class="bot-actions" id="link-bot-actions"></div>
+                                    </div>
+                                    <div class="bot-node ai-bot">
+                                        <span class="bot-status">●</span>
+                                        <span class="bot-name">AI Bot</span>
+                                        <div class="bot-actions" id="ai-bot-actions"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="detail-item">
+                                <h4>Domain Information</h4>
+                                <table id="domain-info">
+                                    <tr>
+                                        <td>Registration Date:</td>
+                                        <td id="domain-reg-date">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Expiration Date:</td>
+                                        <td id="domain-exp-date">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registrar:</td>
+                                        <td id="domain-registrar">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>WHOIS Status:</td>
+                                        <td id="domain-whois-status">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Servers:</td>
+                                        <td id="domain-nameservers">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="detail-item">
+                                <h4>Server Information</h4>
+                                <table id="server-info">
+                                    <tr>
+                                        <td>Server Type:</td>
+                                        <td id="server-type">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>IP Address:</td>
+                                        <td id="server-ip">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location:</td>
+                                        <td id="server-location">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hosting Provider:</td>
+                                        <td id="server-hosting">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operating System:</td>
+                                        <td id="server-os">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="detail-item">
+                                <h4>DNS Records</h4>
+                                <table id="dns-records">
+                                    <tr>
+                                        <td>A Record:</td>
+                                        <td id="dns-a-record">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MX Records:</td>
+                                        <td id="dns-mx-records">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TXT Records:</td>
+                                        <td id="dns-txt-records">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SPF Record:</td>
+                                        <td id="dns-spf-record">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DMARC Record:</td>
+                                        <td id="dns-dmarc-record">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="detail-item">
+                                <h4>Technologies</h4>
+                                <div id="technologies-container">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <h2>About Our Service</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>SecureSpring provides comprehensive website security analysis using advanced bots and security tools. Our service helps you identify potential threats, analyze links, and ensure your online presence is safe.</p>
+                    <p>With our spring-themed security platform, we bring you a fresh approach to cybersecurity, making it accessible and visually appealing while delivering powerful protection insights.</p>
+                </div>
+                <div class="about-image">
+                    <div class="security-shield">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <h2>Our Services</h2>
+            <div class="service-cards">
+                <div class="service-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Website Scanning</h3>
+                    <p>Comprehensive scanning for vulnerabilities, malware, and security issues.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-link"></i>
+                    <h3>Link Analysis</h3>
+                    <p>Deep analysis of all links on your website to detect malicious connections.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-certificate"></i>
+                    <h3>SSL Verification</h3>
+                    <p>Check SSL certificate validity and encryption strength.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-file-code"></i>
+                    <h3>Code Review</h3>
+                    <p>Analyze website code for security vulnerabilities and best practices.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Contact Us</h2>
+            <div class="contact-container">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>contact@securespring.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>123 Security Street, Cyber City</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-shield-alt"></i>
+                <h3>SecureSpring</h3>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 SecureSpring. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

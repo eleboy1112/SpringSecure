@@ -372,7 +372,6 @@ class PhishingBot {
         
         return Array.from(recommendations);
     }
-
     getProgress() {
         return {
             progress: this.scanProgress,
@@ -384,4 +383,4 @@ class PhishingBot {
 }
 
 // Export the PhishingBot class
-module.exports = PhishingBot;```
+module.exports = PhishingBot;
